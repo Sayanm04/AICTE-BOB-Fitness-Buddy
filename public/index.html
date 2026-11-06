@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitness Buddy — AI Health &amp; Fitness Coach</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>" />
+</head>
+<body>
+
+  <!-- ── Sidebar ───────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <span class="logo-icon">🏋️</span>
+      <h1 class="logo-text">Fitness Buddy</h1>
+    </div>
+    <p class="sidebar-tagline">Powered by IBM Granite</p>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-mode="chat"    title="Chat">💬 Chat</button>
+      <button class="nav-btn"        data-mode="workout" title="Workout Planner">🏃 Workout Planner</button>
+      <button class="nav-btn"        data-mode="nutrition" title="Nutrition Guide">🥗 Nutrition Guide</button>
+      <button class="nav-btn"        data-mode="motivate" title="Motivate Me">⚡ Motivate Me</button>
+    </nav>
+
+    <div class="sidebar-profile">
+      <h3>Your Profile</h3>
+      <label>Name
+        <input type="text" id="profileName" placeholder="e.g. Alex" />
+      </label>
+      <label>Age
+        <input type="number" id="profileAge" placeholder="e.g. 28" min="10" max="100" />
+      </label>
+      <label>Fitness Level
+        <select id="profileLevel">
+          <option value="">-- Select --</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </label>
+      <label>Goal
+        <select id="profileGoal">
+          <option value="">-- Select --</option>
+          <option value="weight loss">Weight Loss</option>
+          <option value="muscle gain">Muscle Gain</option>
+          <option value="endurance">Endurance</option>
+          <option value="flexibility">Flexibility</option>
+          <option value="general fitness">General Fitness</option>
+        </select>
+      </label>
+      <label>Restrictions
+        <input type="text" id="profileRestrictions" placeholder="e.g. knee injury, vegan" />
+      </label>
+      <button class="btn-save-profile" id="saveProfile">Save Profile</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <span>IBM Cloud · watsonx.ai</span>
+    </div>
+  </aside>
+
+  <!-- ── Main Content ──────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Hamburger for mobile -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle sidebar">☰</button>
+
+    <!-- ── Chat Panel ──────────────────────────────────── -->
+    <section class="panel active" id="panel-chat">
+      <div class="panel-header">
+        <h2>💬 Chat with Fitness Buddy</h2>
+        <button class="btn-clear" id="clearChat" title="Clear chat">🗑 Clear</button>
+      </div>
+
+      <div class="chat-window" id="chatWindow" role="log" aria-live="polite">
+        <div class="message bot">
+          <div class="avatar">🤖</div>
+          <div class="bubble">
+            <p>👋 Hey there! I'm <strong>Fitness Buddy</strong>, your personal AI health &amp; fitness coach powered by <strong>IBM Granite</strong>.</p>
+            <p>I can help you with:</p>
+            <ul>
+              <li>🏃 Personalised home workout plans</li>
+              <li>🥗 Nutrition advice &amp; meal ideas</li>
+              <li>⚡ Daily motivation &amp; habit tips</li>
+            </ul>
+            <p>What would you like to work on today?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-prompts">
+        <button class="chip" data-prompt="Give me a quick 20-minute beginner home workout.">20-min Home Workout</button>
+        <button class="chip" data-prompt="What should I eat before and after a workout?">Pre &amp; Post Workout Food</button>
+        <button class="chip" data-prompt="How do I stay consistent with my fitness routine?">Stay Consistent</button>
+        <button class="chip" data-prompt="I'm feeling tired and unmotivated today. Help me out!">I Need Motivation</button>
+      </div>
+
+      <form class="chat-form" id="chatForm">
+        <textarea
+          id="chatInput"
+          placeholder="Ask me anything about fitness, nutrition, or wellness…"
+          rows="1"
+          maxlength="2000"
+          required
+        ></textarea>
+        <button type="submit" class="btn-send" id="sendBtn" title="Send">
+          <span class="send-icon">➤</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- ── Workout Planner Panel ───────────────────────── -->
+    <section class="panel" id="panel-workout">
+      <div class="panel-header"><h2>🏃 Workout Planner</h2></div>
+      <div class="form-card">
+        <h3>Generate Your Personalised Plan</h3>
+        <div class="form-grid">
+          <label>Fitness Level
+            <select id="wLevel">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate" selected>Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </label>
+          <label>Goal
+            <select id="wGoal">
+              <option value="weight loss">Weight Loss</option>
+              <option value="muscle gain">Muscle Gain</option>
+              <option value="endurance">Endurance</option>
+              <option value="flexibility">Flexibility</option>
+              <option value="general fitness" selected>General Fitness</option>
+            </select>
+          </label>
+          <label>Duration (minutes)
+            <input type="number" id="wDuration" value="30" min="10" max="120" />
+          </label>
+          <label>Equipment
+            <select id="wEquipment">
+              <option value="none" selected>No Equipment</option>
+              <option value="dumbbells">Dumbbells</option>
+              <option value="resistance bands">Resistance Bands</option>
+              <option value="full gym">Full Gym</option>
+            </select>
+          </label>
+        </div>
+        <button class="btn-primary" id="generateWorkout">Generate Workout Plan 🏋️</button>
+      </div>
+      <div class="result-box" id="workoutResult" hidden></div>
+    </section>
+
+    <!-- ── Nutrition Guide Panel ───────────────────────── -->
+    <section class="panel" id="panel-nutrition">
+      <div class="panel-header"><h2>🥗 Nutrition Guide</h2></div>
+      <div class="form-card">
+        <h3>Get Your Personalised Meal Advice</h3>
+        <div class="form-grid">
+          <label>Nutrition Goal
+            <select id="nGoal">
+              <option value="balanced diet" selected>Balanced Diet</option>
+              <option value="weight loss">Weight Loss</option>
+              <option value="muscle gain">Muscle Gain</option>
+              <option value="energy boost">Energy Boost</option>
+            </select>
+          </label>
+          <label>Daily Calorie Target
+            <input type="number" id="nCalories" placeholder="e.g. 2000 (optional)" min="1000" max="5000" />
+          </label>
+          <label class="span-2">Dietary Preferences / Restrictions
+            <div class="checkbox-group">
+              <label><input type="checkbox" value="vegetarian" /> Vegetarian</label>
+              <label><input type="checkbox" value="vegan" /> Vegan</label>
+              <label><input type="checkbox" value="gluten-free" /> Gluten-Free</label>
+              <label><input type="checkbox" value="dairy-free" /> Dairy-Free</label>
+              <label><input type="checkbox" value="low-carb" /> Low-Carb</label>
+              <label><input type="checkbox" value="high-protein" /> High-Protein</label>
+            </div>
+          </label>
+        </div>
+        <button class="btn-primary" id="generateNutrition">Get Nutrition Advice 🥗</button>
+      </div>
+      <div class="result-box" id="nutritionResult" hidden></div>
+    </section>
+
+    <!-- ── Motivate Me Panel ───────────────────────────── -->
+    <section class="panel" id="panel-motivate">
+      <div class="panel-header"><h2>⚡ Daily Motivation</h2></div>
+      <div class="motivate-center">
+        <div class="motivate-card" id="motivateCard">
+          <div class="motivate-icon">💪</div>
+          <p class="motivate-text" id="motivateText">Click the button below to get your personalised motivational boost!</p>
+        </div>
+        <button class="btn-primary btn-large" id="getMotivation">Inspire Me ⚡</button>
+        <div class="streak-section">
+          <h3>🔥 Your Streak</h3>
+          <p class="streak-count" id="streakCount">0 days</p>
+          <button class="btn-secondary" id="logToday">✅ Log Today's Activity</button>
+          <p class="streak-hint" id="streakHint">Keep going! Log every day to build your streak.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

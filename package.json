@@ -1,0 +1,23 @@
+{
+  "name": "fitness-buddy",
+  "version": "1.0.0",
+  "description": "AI-powered fitness and wellness coach using IBM Granite on watsonx.ai",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@ibm-cloud/watsonx-ai": "^1.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ibm-cloud-sdk-core": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "keywords": ["fitness", "IBM", "granite", "watsonx", "AI", "health"],
+  "author": "Fitness Buddy Team",
+  "license": "MIT"
+}
